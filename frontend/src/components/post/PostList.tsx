@@ -42,8 +42,23 @@ export default function PostList({ refreshTrigger }: PostListProps) {
 
   if (error) {
     return (
-      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-center">
-        {error}
+      <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg">
+        <h3 className="font-bold mb-2">Erro ao carregar posts</h3>
+        <p className="mb-3">{error}</p>
+        <div className="bg-red-50 border-l-4 border-red-700 p-3 mt-3">
+          <p className="font-semibold mb-1">Para iniciar o backend:</p>
+          <ol className="list-decimal list-inside space-y-1 text-sm">
+            <li>Certifique-se de que o PostgreSQL está rodando na porta 5432</li>
+            <li>No diretório backend, execute: <code className="bg-red-200 px-1 rounded">./gradlew bootRun</code></li>
+            <li>O backend estará disponível em: <code className="bg-red-200 px-1 rounded">http://localhost:8080/api/v1</code></li>
+          </ol>
+        </div>
+        <button
+          onClick={loadPosts}
+          className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+        >
+          Tentar novamente
+        </button>
       </div>
     );
   }

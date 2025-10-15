@@ -20,6 +20,7 @@ export default function PostPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState("");
   const [editBody, setEditBody] = useState("");
+  const [editTags, setEditTags] = useState("");
 
   useEffect(() => {
     loadPostData();
@@ -37,6 +38,7 @@ export default function PostPage() {
       setComments(commentsData);
       setEditTitle(postData.title);
       setEditBody(postData.body);
+      setEditTags(postData.tags?.join(", ") || "");
     } catch (err: any) {
       setError("Erro ao carregar post");
       console.error(err);
@@ -53,6 +55,7 @@ export default function PostPage() {
       const updatedPost = await PostService.update(postId, {
         title: editTitle,
         body: editBody,
+        tags: editTags.split(",").map(t => t.trim()).filter(t => t),
         userId: 1,
       });
       setPost(updatedPost);
@@ -139,6 +142,16 @@ export default function PostPage() {
                 )}
               </div>
               <p className="text-gray-700 mb-4 whitespace-pre-wrap">{post.body}</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {post.tags?.map((tag, i) => (
+                  <span
+                    key={i}
+                    className="bg-blue-100 text-blue-800 px-3 py-1 rounded-lg text-sm"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
               <div className="text-sm text-gray-500 border-t pt-3">
                 <p>Por <span className="font-semibold">{post.author.name}</span></p>
                 <p>{new Date(post.createdAt).toLocaleString()}</p>
@@ -156,8 +169,15 @@ export default function PostPage() {
               <textarea
                 value={editBody}
                 onChange={(e) => setEditBody(e.target.value)}
-                className="w-full border border-gray-300 p-3 rounded-lg mb-4 h-48"
+                className="w-full border border-gray-300 p-3 rounded-lg mb-3 h-48"
                 required
+              />
+              <input
+                type="text"
+                value={editTags}
+                onChange={(e) => setEditTags(e.target.value)}
+                placeholder="Tags (separadas por vírgula)"
+                className="w-full border border-gray-300 p-3 rounded-lg mb-4"
               />
               <div className="flex gap-2">
                 <button

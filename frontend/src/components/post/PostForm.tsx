@@ -9,6 +9,7 @@ interface PostFormProps {
 export default function PostForm({ onPostCreated }: PostFormProps) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [tags, setTags] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -21,10 +22,12 @@ export default function PostForm({ onPostCreated }: PostFormProps) {
       await PostService.create({
         title,
         body,
+        tags: tags.split(",").map(t => t.trim()).filter(t => t),
         userId: 1,
       });
       setTitle("");
       setBody("");
+      setTags("");
       onPostCreated?.();
     } catch (err: any) {
       setError(err.response?.data?.message || "Erro ao criar post");
@@ -57,8 +60,16 @@ export default function PostForm({ onPostCreated }: PostFormProps) {
         placeholder="Escreva seu post..."
         value={body}
         onChange={(e) => setBody(e.target.value)}
-        className="w-full border border-gray-300 p-3 rounded-lg mb-4 h-32 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full border border-gray-300 p-3 rounded-lg mb-3 h-32 focus:outline-none focus:ring-2 focus:ring-blue-500"
         required
+        disabled={loading}
+      />
+      <input
+        type="text"
+        placeholder="Tags (separadas por vírgula)"
+        value={tags}
+        onChange={(e) => setTags(e.target.value)}
+        className="w-full border border-gray-300 p-3 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
         disabled={loading}
       />
       <button

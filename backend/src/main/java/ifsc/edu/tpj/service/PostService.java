@@ -30,6 +30,7 @@ public class PostService {
         return postRepository.save(Post.builder()
                 .title(requestDTO.title())
                 .body(requestDTO.body())
+                .tags(requestDTO.tags())
                 .author(author)
                 .build());
     }
@@ -47,6 +48,7 @@ public class PostService {
 
         post.setTitle(requestDTO.title());
         post.setBody(requestDTO.body());
+        post.setTags(requestDTO.tags());
 
         return postRepository.save(post);
     }

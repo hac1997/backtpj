@@ -52,10 +52,11 @@
    ```
    (O arquivo já deve existir, mas se não existir, crie-o com esse conteúdo)
 
-3. Instale as dependências (primeira vez):
+3. Instale as dependências:
    ```bash
    npm install
    ```
+   **IMPORTANTE:** Se você já tinha executado `npm install` antes, execute novamente para instalar o axios.
 
 4. Execute o projeto:
    ```bash
@@ -64,10 +65,13 @@
 
 5. Acesse: `http://localhost:3000`
 
+**Nota:** Se você encontrar o erro "api.get is not a function", pare o servidor (Ctrl+C) e reinicie-o. Isso ocorre porque o Next.js precisa recarregar após a instalação do axios.
+
 ## Funcionalidades Implementadas
 
 ### 1. Criar Post
-- Usuário pode criar posts com título e corpo
+- Usuário pode criar posts com título, corpo e tags
+- Tags são separadas por vírgula (ex: "Java, SpringBoot, Backend")
 - Validação de campos obrigatórios
 - Posts são vinculados ao autor (userId: 1 para testes)
 

@@ -46,17 +46,23 @@
    cd frontend
    ```
 
-2. Instale as dependências (primeira vez):
+2. Verifique se existe o arquivo `.env.local` com a URL do backend:
+   ```
+   NEXT_PUBLIC_API_URL=http://localhost:8080/api/v1
+   ```
+   (O arquivo já deve existir, mas se não existir, crie-o com esse conteúdo)
+
+3. Instale as dependências (primeira vez):
    ```bash
    npm install
    ```
 
-3. Execute o projeto:
+4. Execute o projeto:
    ```bash
    npm run dev
    ```
 
-4. Acesse: `http://localhost:3000`
+5. Acesse: `http://localhost:3000`
 
 ## Funcionalidades Implementadas
 

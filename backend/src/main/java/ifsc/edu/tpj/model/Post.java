@@ -27,9 +27,6 @@ public class Post {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String body;
 
-    @ElementCollection
-    private List<String> tags;
-
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;

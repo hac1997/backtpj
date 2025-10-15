@@ -13,17 +13,7 @@ export default function PostCard({ post }: PostCardProps) {
         <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
         <p className="text-gray-700 mb-3">{post.body.slice(0, 150)}...</p>
         <div className="flex justify-between text-sm text-gray-500 items-center">
-          <div className="flex gap-2 flex-wrap">
-            {post.tags?.map((tag, i) => (
-              <span
-                key={i}
-                className="bg-blue-100 text-blue-800 px-2 py-1 rounded-lg"
-              >
-                #{tag}
-              </span>
-            ))}
-          </div>
-          <div className="text-right">
+          <div>
             <p className="text-xs">Por {post.author.name}</p>
             <span>{new Date(post.createdAt).toLocaleDateString()}</span>
           </div>

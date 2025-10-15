@@ -29,7 +29,6 @@ public class PostService {
         var author = userService.findUserById(requestDTO.userId());
         return postRepository.save(Post.builder()
                 .title(requestDTO.title())
-                .tags(requestDTO.tags())
                 .body(requestDTO.body())
                 .author(author)
                 .build());
@@ -48,7 +47,6 @@ public class PostService {
 
         post.setTitle(requestDTO.title());
         post.setBody(requestDTO.body());
-        post.setTags(requestDTO.tags());
 
         return postRepository.save(post);
     }

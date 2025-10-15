@@ -1,9 +1,12 @@
 package ifsc.edu.tpj.controller;
 
+import ifsc.edu.tpj.dto.PostRequestDTO;
 import ifsc.edu.tpj.model.Post;
-
 import ifsc.edu.tpj.service.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,24 +19,29 @@ public class PostController {
 
     private final PostService postService;
 
-    // @GetMapping
-    // public List<Post> findAll() {
-    // }
+    @GetMapping
+    public ResponseEntity<List<Post>> findAll() {
+        return ResponseEntity.ok(postService.findAll());
+    }
 
-    // @GetMapping("/{id}")
-    // public Post findById(@PathVariable Long id) {
-    // }
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(postService.findById(id));
+    }
 
-    // @PostMapping
-    // public Post create(@RequestBody Post post) {
-    //     return postService.create(post);
-    // }
+    @PostMapping
+    public ResponseEntity<Post> create(@Valid @RequestBody PostRequestDTO postDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(postService.create(postDTO));
+    }
 
-    // @PutMapping("/{id}")
-    // public Post update(@PathVariable Long id, @RequestBody Post updatedPost) {
-    // }
+    @PutMapping("/{id}")
+    public ResponseEntity<Post> update(@PathVariable Long id, @Valid @RequestBody PostRequestDTO postDTO) {
+        return ResponseEntity.ok(postService.update(id, postDTO));
+    }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        postService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

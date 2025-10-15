@@ -1,8 +1,21 @@
+export interface Author {
+  userId: number;
+  name: string;
+  email: string;
+}
+
 export interface Post {
-  id: number;
+  postId: number;
   title: string;
   body: string;
   tags: string[];
-  author: string;
+  author: Author;
   createdAt: string;
+}
+
+export interface PostRequest {
+  title: string;
+  body: string;
+  tags: string[];
+  userId: number;
 }

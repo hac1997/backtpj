@@ -20,6 +20,16 @@ public class PostController {
 
     private final PostService postService;
 
+
+    @GetMapping
+    public ResponseEntity<List<PostResponseDTO>> findAll() {
+        List<PostResponseDTO> posts = postService.findAll().stream()
+                .map(PostResponseDTO::fromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(posts);
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<PostResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(PostResponseDTO.fromEntity(postService.findById(id)));

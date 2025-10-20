@@ -11,7 +11,7 @@ public record PostResponseDTO (
     String body,
     List<String> tags,
     LocalDateTime createdAt,
-    UserResponseDTO user
+    UserResponseDTO author
 ) {
     public static PostResponseDTO fromEntity(Post post){
         if (post == null) {

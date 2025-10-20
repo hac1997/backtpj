@@ -20,7 +20,7 @@ WHERE NOT EXISTS (SELECT 1 FROM users WHERE user_id = 3);
 -- Data for table 'posts'
 -- Corresponds to the Post.java entity
 -- Fields: post_id, title, body, visible, created_at, user_id
--- Note: tags is an ElementCollection and handled separately by JPA
+-- Note: 'tags' is an ElementCollection and handled separately by JPA (e.g., in a 'posts_tags' table)
 --
 
 INSERT INTO posts (post_id, title, body, visible, created_at, user_id)
@@ -34,6 +34,12 @@ WHERE NOT EXISTS (SELECT 1 FROM posts WHERE post_id = 102);
 INSERT INTO posts (post_id, title, body, visible, created_at, user_id)
 SELECT 103, 'JPA Entity Mapping Basics', 'A guide to mapping basic fields, relationships, and auditing listeners.', true, CURRENT_TIMESTAMP, 1
 WHERE NOT EXISTS (SELECT 1 FROM posts WHERE post_id = 103);
+
+--
+-- Data for table 'posts_tags' (JPA ElementCollection for Post.tags)
+-- Fields: Post_postId, tags
+--
+
 
 --
 -- Data for table 'comments'

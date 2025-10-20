@@ -4,6 +4,9 @@ import ifsc.edu.tpj.dto.PostRequestDTO;
 import ifsc.edu.tpj.model.Post;
 import ifsc.edu.tpj.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +24,10 @@ public class PostService {
                         .body(requestDTO.body())
                         .author(author)
                 .build());
+    }
+
+    public List<Post> findAll() {
+        return postRepository.findAll();
     }
 
     public Post findById(Long id){

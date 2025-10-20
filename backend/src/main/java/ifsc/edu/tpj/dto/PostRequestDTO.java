@@ -10,7 +10,7 @@ public record PostRequestDTO(
         String title,
         @NotBlank @NotNull
         String body,
-        @NotBlank @NotNull
+        @NotNull
         List<String> tags,
         @NotNull
         Long userId

@@ -6,9 +6,6 @@ import ifsc.edu.tpj.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class PostService {
@@ -16,45 +13,42 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserService userService;
 
-    public List<Post> findAll() {
-        return postRepository.findAll();
-    }
-
-    public Post findById(Long id) {
-        return postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Post not found with id: " + id));
-    }
-
     public Post create(PostRequestDTO requestDTO) {
         var author = userService.findUserById(requestDTO.userId());
         return postRepository.save(Post.builder()
-                .title(requestDTO.title())
-                .body(requestDTO.body())
-                .tags(requestDTO.tags())
-                .author(author)
+                        .title(requestDTO.title())
+                        .tags(requestDTO.tags())
+                        .body(requestDTO.body())
+                        .author(author)
                 .build());
     }
 
-    public Post update(Long id, PostRequestDTO requestDTO) {
-        Post post = findById(id);
-
-        if (!post.getAuthor().getUserId().equals(requestDTO.userId())) {
-            throw new RuntimeException("Only the author can edit this post");
-        }
-
-        if (post.getCreatedAt().isBefore(LocalDateTime.now().minusHours(24))) {
-            throw new RuntimeException("Cannot edit post after 24 hours");
-        }
-
-        post.setTitle(requestDTO.title());
-        post.setBody(requestDTO.body());
-        post.setTags(requestDTO.tags());
-
-        return postRepository.save(post);
+    public Post findById(Long id){
+        return postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post não encontrado" + id));
     }
 
-    public void delete(Long id) {
+    public Post update(Long id, PostRequestDTO dto){
+        Post post = findById(id);
+
+        if (!post.getAuthor().getUserId().equals(dto.userId())) {
+            throw new RuntimeException("somente autores podem editar o próprio post");
+        }
+
+        post.setBody(dto.body());
+        post.setTitle(dto.title());
+        post.setTags(dto.tags());
+        
+        return postRepository.save(post);
+    
+    }
+
+    // futuramente, quando implementarmos as ferramentas de moderação,
+    // devemos incluir a possibilidade de deletar ou
+    // tirar fora de visualização um comentário
+    public Post delete(Long id){
         Post post = findById(id);
         postRepository.delete(post);
+        return post;
     }
 }

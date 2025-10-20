@@ -23,6 +23,9 @@ public class Comment {
     @Column(columnDefinition = "TEXT")
     private String body;
 
+    //futuramente pra ferramentas de moderação
+    private boolean visible;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -34,4 +37,6 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User author;
+
+
 }

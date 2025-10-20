@@ -4,6 +4,5 @@ public record CommentRequestDTO(
         String body,
         Long postId,
         Long userId
-
 ) {
 }

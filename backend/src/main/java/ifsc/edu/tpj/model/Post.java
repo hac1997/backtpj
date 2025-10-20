@@ -27,9 +27,10 @@ public class Post {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String body;
 
+    //futuramente pra ferramentas de moderação
+    private boolean visible;
+
     @ElementCollection
-    @CollectionTable(name = "post_tags", joinColumns = @JoinColumn(name = "post_id"))
-    @Column(name = "tag")
     private List<String> tags;
 
     @CreatedDate

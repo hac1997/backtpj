@@ -1,5 +1,6 @@
 package ifsc.edu.tpj.model;
 
+import ifsc.edu.tpj.util.ValidPasswd;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -22,11 +23,15 @@ public class User {
     private String name;
 
     @Email
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
+    @ValidPasswd
     @Column(nullable = false)
     private String password;
+
+    private boolean isEmailVerified;
+    private String emailVerificationCode;
 
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)

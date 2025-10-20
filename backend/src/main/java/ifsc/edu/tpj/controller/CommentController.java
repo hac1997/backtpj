@@ -34,13 +34,19 @@ public class CommentController {
     }
 
     @PostMapping("/{postId}/comments")
-    public ResponseEntity<CommentResponseDTO> create(@PathVariable Long postId, @Valid @RequestBody CommentRequestDTO commentDTO) {
+    public ResponseEntity<CommentResponseDTO> create(
+            @PathVariable Long postId,
+            @Valid @RequestBody CommentRequestDTO commentDTO
+    ) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(CommentResponseDTO.fromEntity(commentService.create(postId, commentDTO)));
     }
 
     @PutMapping("/comments/{id}")
-    public ResponseEntity<CommentResponseDTO> update(@PathVariable Long id, @Valid @RequestBody CommentRequestDTO commentDTO) {
+    public ResponseEntity<CommentResponseDTO> update(
+            @PathVariable Long id,
+            @Valid @RequestBody CommentRequestDTO commentDTO
+    ) {
         return ResponseEntity.ok(CommentResponseDTO.fromEntity(commentService.update(id, commentDTO)));
     }
 
